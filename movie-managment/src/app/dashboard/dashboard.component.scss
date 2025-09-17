@@ -1,0 +1,103 @@
+/* Add these styles to your dashboard.component.scss file */
+
+.search-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .search-result-card {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 0.5rem;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s;
+    
+    &:hover {
+      background-color: #f8f9fa;
+    }
+    
+    &.selected {
+      background-color: #e7f4ff;
+      border-color: #4d90fe;
+    }
+  }
+  
+  .poster {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    
+    img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    
+    .no-poster {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+      background-color: #f1f1f1;
+      color: #999;
+    }
+  }
+  
+  .movie-info {
+    h5 {
+      margin: 0;
+      font-size: 1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    p {
+      margin: 0.25rem 0 0;
+      color: #666;
+    }
+  }
+  
+  .selection-indicator {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1.2rem;
+    
+    .pi-check-circle {
+      color: #4d90fe;
+    }
+    
+    .pi-circle {
+      color: #ccc;
+    }
+  }
+  
+  // Make sure table actions are properly aligned
+  td {
+    vertical-align: middle !important;
+  }
+  
+  // Button spacing in admin controls
+  .p-mb-3 button {
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+.plot-cell {
+  max-width: 300px;       /* Keep it readable */
+  white-space: normal;    /* Allow wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+

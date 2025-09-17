@@ -1,0 +1,52 @@
+<!-- src/app/auth/register/register.component.html -->
+<div class="flex justify-content-center align-items-center min-h-screen bg-blue-50">
+    <div class="surface-card p-4 shadow-2 border-round w-full lg:w-5 md:w-6">
+      <div class="text-center mb-5">
+        <div class="text-900 text-3xl font-medium mb-3">Create an Account</div>
+        <span class="text-600 font-medium">Sign up to get started</span>
+      </div>
+  
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="username" class="block text-900 font-medium mb-2">Username*</label>
+          <input id="username" formControlName="username" type="text" pInputText class="w-full" 
+                 [ngClass]="{'ng-invalid ng-dirty': f['username'].touched && f['username'].errors}">
+          <small *ngIf="f['username'].touched && f['username'].errors?.['required']" class="p-error">Username is required</small>
+          <small *ngIf="f['username'].touched && f['username'].errors?.['minlength']" class="p-error">Username must be at least 3 characters</small>
+        </div>
+  
+        <div class="mb-3">
+          <label for="email" class="block text-900 font-medium mb-2">Email*</label>
+          <input id="email" formControlName="email" type="email" pInputText class="w-full"
+                 [ngClass]="{'ng-invalid ng-dirty': f['email'].touched && f['email'].errors}">
+          <small *ngIf="f['email'].touched && f['email'].errors?.['required']" class="p-error">Email is required</small>
+          <small *ngIf="f['email'].touched && f['email'].errors?.['email']" class="p-error">Invalid email format</small>
+        </div>
+  
+        <div class="mb-3">
+          <label for="password" class="block text-900 font-medium mb-2">Password*</label>
+          <p-password id="password" formControlName="password" [toggleMask]="true" styleClass="w-full"
+                     [ngClass]="{'ng-invalid ng-dirty': f['password'].touched && f['password'].errors}"></p-password>
+          <small *ngIf="f['password'].touched && f['password'].errors?.['required']" class="p-error">Password is required</small>
+          <small *ngIf="f['password'].touched && f['password'].errors?.['minlength']" class="p-error">Password must be at least 6 characters</small>
+        </div>
+  
+        <div class="mb-3">
+          <label for="confirmPassword" class="block text-900 font-medium mb-2">Confirm Password*</label>
+          <p-password id="confirmPassword" formControlName="confirmPassword" [toggleMask]="true" styleClass="w-full"
+                     [ngClass]="{'ng-invalid ng-dirty': f['confirmPassword'].touched && f['confirmPassword'].errors}"></p-password>
+          <small *ngIf="f['confirmPassword'].touched && f['confirmPassword'].errors?.['required']" class="p-error">Confirm Password is required</small>
+          <small *ngIf="f['confirmPassword'].touched && f['confirmPassword'].errors?.['mismatch']" class="p-error">Passwords do not match</small>
+        </div>
+    
+        <button pButton pRipple type="submit" label="Register" [loading]="loading" class="w-full mb-3"></button>
+        
+        <div class="text-center mt-4">
+          <span class="text-600 font-medium">Already have an account?</span>
+          <a [routerLink]="['/auth/login']" class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Sign in</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <p-toast></p-toast>

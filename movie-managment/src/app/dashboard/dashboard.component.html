@@ -1,0 +1,104 @@
+<p-menubar [model]="menuItems">
+    <ng-template pTemplate="end">
+        <button pButton label="Logout" icon="pi pi-sign-out" (click)="logout()" class="p-button-danger"></button>
+    </ng-template>
+</p-menubar>
+
+<div class="p-4">
+    <h2>Welcome, {{ currentUser?.username }}</h2>
+
+    <!-- Friendly role display -->
+    <p *ngIf="currentUser?.role === 'ROLE_ADMIN'">
+        You are logged in as <strong>Administrator</strong>.  
+        You can manage movies and oversee the system. 🚀
+    </p>
+
+    <p *ngIf="currentUser?.role === 'ROLE_USER'">
+        Enjoy browsing and rating your favorite movies! 🍿🎬
+    </p>
+
+    
+
+    <!-- Search Bar -->
+    <div class="p-inputgroup p-mb-3">
+        <input type="text" pInputText placeholder="Search movies..." [(ngModel)]="searchTerm" (input)="filterMovies()" />
+        <button pButton icon="pi pi-search" class="p-button-primary" (click)="filterMovies()"></button>
+    </div>
+
+    <!-- Movie Table -->
+    <p-table #dt [value]="filteredMovies" [(selection)]="selectedMovies" dataKey="id"
+      [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSelectableColumn></th>
+                <th>Poster</th>
+                <th pSortableColumn="title">Title <p-sortIcon field="title"></p-sortIcon></th>
+                <th pSortableColumn="year">Year <p-sortIcon field="year"></p-sortIcon></th>
+                <th pSortableColumn="genre">Genre <p-sortIcon field="genre"></p-sortIcon></th>
+                <th pSortableColumn="director">Director <p-sortIcon field="director"></p-sortIcon></th>
+                <th>Plot</th>
+                <th>Rating</th>
+                <th *ngIf="currentUser?.role === 'ROLE_ADMIN'">Actions</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-movie>
+            <tr [pSelectableRow]="movie" selectionMode="multiple">
+                <td pSelectableColumn></td>
+
+                <!-- Poster -->
+                <td>
+                    <img [src]="movie.poster || 'assets/no-poster.png'" 
+                         alt="{{ movie.title }}" 
+                         style="width:60px; height:90px; object-fit:cover; border-radius:4px;" />
+                </td>
+
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.year }}</td>
+                <td>{{ movie.genre || 'N/A' }}</td>
+                <td>{{ movie.director || 'N/A' }}</td>
+
+                <!-- Plot -->
+                <td style="max-width:250px; white-space:normal; overflow:hidden; text-overflow:ellipsis;">
+                    <span [title]="movie.plot">{{ movie.plot }}</span>
+                </td>
+
+                <!-- Rating -->
+                <td>
+                    <!-- User can rate -->
+                    <p-rating 
+                        [(ngModel)]="movie.rating"
+                        [cancel]="false"
+                        [stars]="5"
+                        (onRate)="rateMovie(movie, $event.value)">
+                    </p-rating>
+
+                    <!-- Show average rating -->
+                    <div class="text-sm text-gray-600 mt-1">
+                        Avg: 
+                        <p-rating 
+                            [ngModel]="movie.averageRating" 
+                            [readonly]="true" 
+                            [cancel]="false" 
+                            [stars]="5">
+                        </p-rating>
+                        <span *ngIf="movie.averageRating">{{ movie.averageRating.toFixed(1) }}/5</span>
+                    </div>
+                </td>
+
+                <!-- Admin only -->
+                <td *ngIf="currentUser?.role === 'ROLE_ADMIN'">
+                    <button pButton icon="pi pi-trash" class="p-button-danger p-button-sm" (click)="deleteMovie(movie)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    
+<p-button
+  *ngIf="currentUser?.role === 'ROLE_ADMIN'"
+  label="External Movies"
+  routerLink="/external-movies"
+  class="p-button-success">
+</p-button>

@@ -1,0 +1,71 @@
+<div class="flex justify-content-center align-items-center min-h-screen bg-gradient-to-r from-blue-100 to-blue-200">
+  <div class="surface-card p-6 shadow-3 border-round w-full sm:w-10 md:w-6 lg:w-4">
+    
+    <!-- Header -->
+    <div class="text-center mb-5">
+      <div class="text-4xl font-bold text-blue-600 mb-3">🎬 MovieApp</div>
+
+      <div class="text-900 text-3xl font-bold mb-2">Welcome Back</div>
+      <span class="text-600">Sign in to continue</span>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <!-- Username -->
+      <div class="mb-4">
+        <label for="username" class="block text-900 font-semibold mb-2">Username</label>
+        <div class="p-input-icon-left w-full">
+          <i class="pi pi-user"></i>
+          <input id="username" formControlName="username" type="text" pInputText class="w-full"
+                 [ngClass]="{'ng-invalid ng-dirty': f['username'].touched && f['username'].errors}">
+        </div>
+        <small *ngIf="f['username'].touched && f['username'].errors?.['required']" class="p-error">
+          Username is required
+        </small>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-4">
+        <label for="password" class="block text-900 font-semibold mb-2">Password</label>
+        <p-password id="password" formControlName="password" [toggleMask]="true" styleClass="w-full"
+                    [feedback]="false"
+                    [ngClass]="{'ng-invalid ng-dirty': f['password'].touched && f['password'].errors}">
+        </p-password>
+        <small *ngIf="f['password'].touched && f['password'].errors?.['required']" class="p-error">
+          Password is required
+        </small>
+      </div>
+
+      <!-- Options -->
+      <div class="flex align-items-center justify-content-between mb-5">
+        <div class="flex align-items-center">
+          <p-checkbox [binary]="true" inputId="rememberme" styleClass="mr-2"></p-checkbox>
+          <label for="rememberme">Remember me</label>
+        </div>
+        <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer hover:underline">Forgot password?</a>
+      </div>
+
+      <!-- Submit -->
+      <button pButton pRipple type="submit" label="Sign In" [loading]="loading" 
+              class="w-full p-button-lg p-button-rounded p-button-primary shadow-2"></button>
+
+      <!-- Divider -->
+      <div class="flex align-items-center my-4">
+        <div class="flex-grow-1 border-top-1 surface-border"></div>
+        <span class="px-2 text-500">or</span>
+        <div class="flex-grow-1 border-top-1 surface-border"></div>
+      </div>
+
+      <!-- Register Link -->
+      <div class="text-center">
+        <span class="text-600">Don't have an account?</span>
+        <a [routerLink]="['/auth/register']" class="font-semibold no-underline ml-2 text-blue-500 hover:underline">
+          Create one now
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<p-toast></p-toast>

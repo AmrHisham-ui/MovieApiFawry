@@ -1,0 +1,79 @@
+<div class="p-4">
+  <h2>Search External Movies</h2>
+
+  <!-- Search Bar -->
+  <div class="p-inputgroup mb-3">
+    <input type="text"
+           pInputText
+           placeholder="Enter movie title..."
+           [(ngModel)]="searchTerm"
+           (keyup.enter)="searchMovies()" />
+    <button pButton label="Search" icon="pi pi-search" (click)="searchMovies()"></button>
+  </div>
+  <!-- Batch Action Buttons -->
+  <div class="mb-3" *ngIf="externalMovies.length > 0">
+    <button pButton 
+            label="Add Selected ({{selectedMovies.length}})" 
+            icon="pi pi-plus"
+            class="p-button-success mr-2"
+            (click)="addSelectedMovies()"
+            [disabled]="selectedMovies.length === 0">
+    </button>
+    
+    <button pButton 
+            label="Remove Selected ({{selectedMovies.length}})" 
+            icon="pi pi-trash"
+            class="p-button-danger"
+            (click)="removeSelectedMovies()"
+            [disabled]="selectedMovies.length === 0">
+    </button>
+  </div>
+  <!-- Results Table -->
+    <p-table [value]="externalMovies" 
+           [loading]="loading"
+           [(selection)]="selectedMovies"
+           dataKey="imdbId">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Director</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-movie>
+
+      <tr>
+          <td>
+          <p-tableCheckbox [value]="movie"></p-tableCheckbox>
+        </td>
+        
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.year }}</td>
+        <td>{{ movie.director }}</td>
+        <td>
+          <button pButton
+                  label="Add"
+                  icon="pi pi-plus"
+                  class="p-button-success"
+                  (click)="addMovie(movie.imdbId)">
+          </button>
+<button 
+          pButton 
+          type="button" 
+          label="Remove" 
+          class="p-button-danger p-button-sm"
+          (click)="removeMovie(movie.imdbId)"
+          style="margin-left: 8px;">
+        </button>   
+         
+        </td>
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+

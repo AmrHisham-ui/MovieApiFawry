@@ -1,0 +1,54 @@
+/* Global Netflix-Inspired Theme */
+body {
+  margin: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: #141414; /* Netflix dark */
+  color: #e5e5e5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+a {
+  color: #e50914; /* Netflix red */
+  text-decoration: none;
+}
+
+.p-button {
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.p-button-primary, .p-button-success {
+  background-color: #e50914 !important;
+  border: none;
+}
+
+.p-button-danger {
+  background-color: #b81d24 !important;
+  border: none;
+}
+
+.p-menubar {
+  background-color: #141414 !important;
+  border: none;
+}
+
+.p-inputtext {
+  background-color: #333 !important;
+  color: #fff !important;
+  border: none;
+}
+
+.p-table {
+  background-color: #1c1c1c;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.p-dialog {
+  background: #1f1f1f !important;
+  color: #fff !important;
+}
